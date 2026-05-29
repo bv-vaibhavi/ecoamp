@@ -155,8 +155,15 @@ export default function Appliances() {
           from { opacity:0; transform:translateY(16px); }
           to   { opacity:1; transform:translateY(0); }
         }
+        .chips-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .chips-row > div { flex: 1 1 calc(50% - 6px); min-width: 120px; }
+        .app-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        @media (max-width: 768px) {
+          .app-header { flex-direction: column; gap: 12px; }
+          .app-header button { width: 100%; justify-content: center; }
+        }
       `}</style>
-      <header style={s.header}>
+      <header style={s.header} className="app-header">
         <div>
           <h1 style={s.title}>Appliances</h1>
           <p style={s.sub}>Manage your devices and track per-appliance consumption</p>
@@ -167,7 +174,7 @@ export default function Appliances() {
       </header>
 
       {/* Summary chips */}
-      <div style={s.chips}>
+      <div style={s.chips} className="chips-row">
         {[
           ["Total Devices", appliances.length],
           ["Currently On",  appliances.filter(a => a.isOn).length],

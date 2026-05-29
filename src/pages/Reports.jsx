@@ -295,7 +295,19 @@ export default function Reports() {
 
   return (
     <div style={s.page}>
-      <header style={s.header}>
+      <style>{`
+        .chips-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .chips-row > div { flex: 1 1 calc(50% - 6px); min-width: 120px; }
+        .charts-row-r { display: flex; gap: 16px; }
+        .reports-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        @media (max-width: 768px) {
+          .charts-row-r { flex-direction: column !important; }
+          .reports-header { flex-direction: column; gap: 12px; }
+          .calc-grid-2 { grid-template-columns: 1fr !important; }
+          .result-grid-4 { grid-template-columns: repeat(2,1fr) !important; }
+        }
+      `}</style>
+      <header style={s.header} className="reports-header">
         <div>
           <h1 style={s.title}>Reports</h1>
           <p style={s.sub}>Consumption analysis · ₹{userRate}/unit effective rate</p>
@@ -310,7 +322,7 @@ export default function Reports() {
       </header>
 
       {/* Summary chips */}
-      <div style={s.grid4}>
+      <div style={s.grid4} className="chips-row">
         {[["Total Devices", appliances.length, ""],
           ["Monthly Usage", totalMonthly, "kWh"],
           ["Monthly Cost",  `₹${totalCost}`, ""],
@@ -332,7 +344,7 @@ export default function Reports() {
       ) : (
         <>
           {/* Charts */}
-          <div style={s.chartsRow}>
+          <div style={s.chartsRow} className="charts-row-r">
             <div style={s.chartCard}>
               <div style={s.chartTitle}>
                 Consumption by Appliance ({view === "monthly" ? "kWh/month" : "kWh/day"})
