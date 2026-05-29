@@ -38,9 +38,9 @@ export default function Signup() {
   };
 
   const fields = [
-    { name: "name",     label: "Full name",     type: "text",     icon: User,  placeholder: "Vaibhavi Sharma" },
-    { name: "email",    label: "Email address", type: "email",    icon: Mail,  placeholder: "you@example.com" },
-    { name: "homeName", label: "Home / Location name", type: "text", icon: Home, placeholder: "My Home, Office…" },
+    { name: "name",     label: "Full name",     type: "text",     icon: User,  placeholder: "Your full name",   autoComplete: "off" },
+    { name: "email",    label: "Email address", type: "email",    icon: Mail,  placeholder: "you@example.com",  autoComplete: "email" },
+    { name: "homeName", label: "Home / Location name", type: "text", icon: Home, placeholder: "My Home, Office…", autoComplete: "off" },
   ];
 
   return (
@@ -87,6 +87,7 @@ export default function Signup() {
                     name={name} type={type} required
                     value={form[name]} onChange={handle}
                     placeholder={placeholder}
+                    autoComplete={autoComplete}
                     style={s.input}
                   />
                 </div>
