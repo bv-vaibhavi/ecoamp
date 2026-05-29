@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import NotificationBell from "./NotificationBell";
 import PageTransition from "./PageTransition";
+import InstallPrompt from "./InstallPrompt";
 
 const navItems = [
   { path: "/dashboard",  label: "Dashboard",  icon: LayoutDashboard },
@@ -132,6 +133,8 @@ export default function Layout({ children }) {
       <main style={s.main}>
         <PageTransition>{children}</PageTransition>
       </main>
+
+      <InstallPrompt />
 
       {/* ── Mobile Bottom Nav ── */}
       <nav style={s.bottomNav} className="mobile-bottomnav">
