@@ -299,9 +299,9 @@ const sec = {
   body: { padding:"4px 0" },
 };
 const r = {
-  row: { display:"flex", justifyContent:"space-between", alignItems:"flex-start", padding:"14px 20px", borderBottom:"1px solid #111827" },
-  label: { fontSize:13, color:"#9ca3af", paddingTop:6, flex:"0 0 200px" },
-  right: { flex:1, display:"flex", flexDirection:"column", gap:4 },
+  row: { display:"flex", flexDirection:"column", gap:8, padding:"14px 20px", borderBottom:"1px solid #111827" },
+  label: { fontSize:12, color:"#9ca3af", fontWeight:500, textTransform:"uppercase", letterSpacing:0.5 },
+  right: { display:"flex", flexDirection:"column", gap:4 },
 };
 const t = {
   pill: { width:36, height:20, borderRadius:99, border:"none", cursor:"pointer", position:"relative", transition:"background 0.2s", flexShrink:0 },

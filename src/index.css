@@ -21,7 +21,7 @@ select option { background: #111827; color: #f9fafb; }
 
 @media (max-width: 768px) {
   /* push content down below top bar and up above bottom nav */
-  main > div {
+  main > div > div {
     padding-top: 72px !important;
     padding-bottom: 80px !important;
     padding-left: 16px !important;

@@ -78,7 +78,7 @@ export default function Signup() {
           )}
 
           <form onSubmit={submit} style={s.form}>
-            {fields.map(({ name, label, type, icon: Icon, placeholder }) => (
+            {fields.map(({ name, label, type, icon: Icon, placeholder, autoComplete }) => (
               <div key={name} style={s.field}>
                 <label style={s.label}>{label}</label>
                 <div style={s.inputWrap}>

@@ -89,6 +89,17 @@ export default function Dashboard() {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
+        .search-box { display: flex; }
+        .charts-row { display: flex; gap: 16px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+        @media (max-width: 768px) {
+          .search-box { display: none !important; }
+          .charts-row { flex-direction: column !important; }
+          .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media (max-width: 400px) {
+          .stats-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
       {/* Topbar */}
       <header style={s.topbar}>
@@ -97,7 +108,7 @@ export default function Dashboard() {
           <p style={s.pageSub}>Welcome back, {user?.name?.split(" ")[0] || "there"} 👋</p>
         </div>
         <div style={s.topRight}>
-          <div style={s.searchBox}>
+          <div style={s.searchBox} className="search-box">
             <Search size={15} color="#4a5568" />
             <input style={s.searchInput} placeholder="Search…" />
           </div>
@@ -106,7 +117,7 @@ export default function Dashboard() {
       </header>
 
       {/* Stats */}
-      <div style={s.grid4}>
+      <div style={s.grid4} className="stats-grid">
         <StatCard title="Units Today"    value={totalUnits}   unit=" kWh" sub="estimated"                        trend="up"   trendVal="+8.4%" isNumeric decimals={1} />
         <StatCard title="Estimated Cost" value={totalCost}    unit=""     sub="today"                              trend="up"   trendVal="+5.2%" isNumeric decimals={0} />
         <StatCard title="Active Devices" value={activeCount}  unit=""     sub={`of ${appliances.length} added`}    trend="down" trendVal="-2"    isNumeric decimals={0} />
@@ -114,7 +125,7 @@ export default function Dashboard() {
       </div>
 
       {/* Charts */}
-      <div style={s.chartsRow}>
+      <div style={s.chartsRow} className="charts-row">
         <div style={s.chartCard}>
           <div style={s.chartHeader}>
             <div>
