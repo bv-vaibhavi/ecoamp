@@ -1,0 +1,73 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0f1a;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #f9fafb;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #0a0f1a; }
+::-webkit-scrollbar-thumb { background: #1a2235; border-radius: 99px; }
+
+input[type="range"] { accent-color: #34d399; }
+select option { background: #111827; color: #f9fafb; }
+
+/* ── Responsive page padding ── */
+.page-content {
+  padding: 24px 28px;
+}
+
+@media (max-width: 768px) {
+  /* push content down below top bar and up above bottom nav */
+  main > div {
+    padding-top: 72px !important;
+    padding-bottom: 80px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* 4-col grids → 2 cols */
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* charts row → stack */
+  .charts-row {
+    flex-direction: column !important;
+  }
+
+  /* hide second chart on very small */
+  .chart-secondary {
+    flex: unset !important;
+    width: 100% !important;
+  }
+
+  /* table horizontal scroll */
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  /* calculator grid 2-col → 1-col */
+  .calc-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* login/signup left panel hidden on mobile */
+  .auth-left {
+    display: none !important;
+  }
+
+  .auth-right {
+    flex: 1 !important;
+    padding: 24px 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 2-col grids → 1 col on very small */
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
