@@ -1,81 +1,80 @@
 import { useState, useEffect } from "react";
-import { Download, X } from "lucide-react";
+import { Download, X, Share, Plus } from "lucide-react";
 
-export default function InstallPrompt() {
-  const [prompt,    setPrompt]    = useState(null);
-  const [visible,   setVisible]   = useState(false);
-  const [installed, setInstalled] = useState(false);
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+}
 
-  useEffect(() => {
-    // Check if already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setInstalled(true);
-      return;
-    }
-
-    const handler = (e) => {
-      e.preventDefault();
-      setPrompt(e);
-      setVisible(true);
-    };
-
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);
-
-  const install = async () => {
-    if (!prompt) return;
-    prompt.prompt();
-    const { outcome } = await prompt.userChoice;
-    if (outcome === "accepted") setInstalled(true);
-    setVisible(false);
-  };
-
-  if (!visible || installed) return null;
-
+function isInStandaloneMode() {
   return (
-    <div style={s.banner}>
-      <div style={s.left}>
-        <img src="/logo.png" alt="ECOAMP" style={{ width: 36, height: 36, objectFit: "contain" }} />
-        <div>
-          <div style={s.title}>Install ECOAMP</div>
-          <div style={s.sub}>Add to home screen for the best experience</div>
-        </div>
-      </div>
-      <div style={s.actions}>
-        <button style={s.installBtn} onClick={install}>
-          <Download size={14} />
-          Install
-        </button>
-        <button style={s.closeBtn} onClick={() => setVisible(false)}>
-          <X size={16} color="#4a5568" />
-        </button>
-      </div>
-    </div>
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true
   );
 }
 
-const s = {
-  banner: {
-    position: "fixed", bottom: 72, left: 12, right: 12, zIndex: 100,
-    background: "#0d1321", border: "1px solid #34d399",
-    borderRadius: 12, padding: "12px 14px",
-    display: "flex", alignItems: "center", justifyContent: "space-between",
-    boxShadow: "0 8px 32px #00000060",
-    animation: "slideUp 0.3s ease",
-  },
-  left: { display: "flex", alignItems: "center", gap: 10 },
-  title: { fontSize: 13, fontWeight: 700, color: "#f9fafb" },
-  sub: { fontSize: 11, color: "#4a5568", marginTop: 2 },
-  actions: { display: "flex", alignItems: "center", gap: 8 },
-  installBtn: {
-    display: "flex", alignItems: "center", gap: 5,
-    background: "#34d399", color: "#0a0f1a",
-    border: "none", borderRadius: 8,
-    padding: "7px 12px", fontSize: 12, fontWeight: 700, cursor: "pointer",
-  },
-  closeBtn: {
-    background: "none", border: "none", cursor: "pointer",
-    display: "flex", alignItems: "center", padding: 4,
-  },
-};
+// ── iOS step-by-step bottom sheet ─────────────────────────────────────────────
+function IOSGuide({ onClose }) {
+  const steps = [
+    {
+      icon: <Share size={20} color="#34d399" />,
+      label: "Tap the Share button",
+      sub: "The box-with-arrow icon at the bottom of Safari",
+    },
+    {
+      icon: <Plus size={20} color="#34d399" />,
+      label: 'Tap "Add to Home Screen"',
+      sub: "Scroll down in the share sheet if needed",
+    },
+    {
+      icon: (
+        <span style={{ fontSize: 18, fontWeight: 700, color: "#34d399" }}>✓</span>
+      ),
+      label: 'Tap "Add" to confirm',
+      sub: "ECOAMP will appear on your home screen",
+    },
+  ];
+
+  return (
+    <div style={modal.overlay}>
+      <div style={modal.box}>
+        {/* header */}
+        <div style={modal.header}>
+          <img
+            src="/logo.png"
+            alt="ECOAMP"
+            style={{ width: 40, height: 40, objectFit: "contain" }}
+          />
+          <div>
+            <div style={modal.title}>Install ECOAMP</div>
+            <div style={modal.sub}>Follow these steps in Safari</div>
+          </div>
+          <button style={modal.closeBtn} onClick={onClose}>
+            <X size={18} color="#6b7280" />
+          </button>
+        </div>
+
+        <div style={modal.divider} />
+
+        {/* steps */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          {steps.map((step, i) => (
+            <div key={i} style={modal.stepRow}>
+              <div style={modal.stepNum}>{i + 1}</div>
+              <div style={modal.stepIcon}>{step.icon}</div>
+              <div>
+                <div style={modal.stepLabel}>{step.label}</div>
+                <div style={modal.stepSub}>{step.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* tip */}
+        <div style={modal.tip}>
+          💡 Works best in Safari. If you're using Chrome or another browser,
+          open this page in Safari first.
+        </div>
+
+        {/* bottom hint */}
+        <div style={modal.arrowHint}>
+          <Share size={14} color="#34d399" style={{ marginRight: 6 }} /

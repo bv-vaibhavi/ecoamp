@@ -8,6 +8,7 @@ import {
 import NotificationBell from "./NotificationBell";
 import PageTransition from "./PageTransition";
 import InstallPrompt from "./InstallPrompt";
+import OnboardingTour from "./OnboardingTour";
 
 const navItems = [
   { path: "/dashboard",  label: "Dashboard",  icon: LayoutDashboard },
@@ -88,6 +89,7 @@ export default function Layout({ children }) {
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:4 }}>
           <NotificationBell />
+          <InstallButton />
           <button style={s.iconBtn} onClick={() => setOpen(o => !o)}>
             {open ? <X size={22} color="#9ca3af" /> : <Menu size={22} color="#9ca3af" />}
           </button>
@@ -135,6 +137,7 @@ export default function Layout({ children }) {
       </main>
 
       <InstallPrompt />
+      <OnboardingTour />
 
       {/* ── Mobile Bottom Nav ── */}
       <nav style={s.bottomNav} className="mobile-bottomnav">
@@ -187,5 +190,4 @@ const s = {
   mobileOverlay: { position:"fixed", inset:0, background:"#000c", zIndex:60, display:"none", alignItems:"flex-start", justifyContent:"flex-start" },
   mobileDrawer: { background:"#0d1321", width:280, height:"100%", display:"flex", flexDirection:"column", borderRight:"1px solid #1a2235", overflowY:"auto" },
   bottomNav: { display:"none", position:"fixed", bottom:0, left:0, right:0, background:"#0d1321", borderTop:"1px solid #1a2235", zIndex:50 },
-  bottomNavItem: { flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"10px 0 8px", background:"none", border:"none", cursor:"pointer" },
-};
+  bottomNavItem: { flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding
